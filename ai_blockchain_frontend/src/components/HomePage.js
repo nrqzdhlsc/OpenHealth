@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import NavBar from './NavBar';
+
 import {
     Button,
     Container,
