@@ -30,7 +30,7 @@ const onClickConfirm = (requestId) => {
         body:formBody
     }).then((response) => response.json())
     console.log(response);
-    // window.location.href="http://localhost:3000/medical-data-sharing";
+    window.location.href="http://localhost:3000/medical-data-sharing";
 }
 
 // 拒绝查看请求

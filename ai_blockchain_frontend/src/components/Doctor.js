@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Feed } from 'semantic-ui-react';
+import HERModal from './HERModal';
 
 import {
     Button
@@ -64,7 +65,7 @@ class Doctor extends Component {
                                         {item.status === 0 ? <div>
                                             <Button onClick={() => this.onClickRequest && this.onClickRequest(item.dataId)}>{this.state.buttonType == 0 && index ==0? '查看':'请求查看'}</Button>
                                         </div>: <div>
-                                        <Button positive>查看</Button>
+                                        <HERModal showBtn = {<Button positive>查看</Button>} />
                                         </div>}
                                     </Feed.Summary>
                                 </Feed.Content>
