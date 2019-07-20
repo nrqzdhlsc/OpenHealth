@@ -198,6 +198,9 @@ def define_and_get_arguments(args=sys.argv[1:]):
 
 
 def main():
+
+    
+    
     args = define_and_get_arguments() #TODO
     #print(args)
     hook = sy.TorchHook(torch)
