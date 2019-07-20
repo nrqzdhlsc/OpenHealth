@@ -11,18 +11,71 @@ import {
     Image,
     Icon,
     Grid,
-    Header
+    Header,
+    Dropdown
 } from 'semantic-ui-react';
 
 var ContainerStyle = {
     background:"#032951"
 }
 
+let urlInput = '/pneumonia_input/NORMAL1.jpeg'
+let urlOutput = '/pneumonia_output/img.png'
+
+const photoOptions = [
+  {
+    key: 'Photo1',
+    text: 'Photo1',
+    value: '/pneumonia_input/NORMAL1.jpeg',
+  },
+  {
+    key: 'Photo2',
+    text: 'Photo2',
+    value: '/pneumonia_input/NORMAL2.jpeg',
+  },
+  {
+    key: 'Photo3',
+    text: 'Photo3',
+    value: '/pneumonia_input/NORMAL3.jpeg',
+  },
+  {
+    key: 'Photo4',
+    text: 'Photo4',
+    value: '/pneumonia_input/virus1.jpeg',
+  },
+  {
+    key: 'Photo5',
+    text: 'Photo5',
+    value: '/pneumonia_input/virus2.jpeg',
+  },
+  {
+    key: 'Photo6',
+    text: 'Photo6',
+    value: '/pneumonia_input/virus3.jpeg',
+  }
+]
+
+console.log(process.env.PUBLIC_URL)
 
 class Model1 extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            picInput:'/pneumonia_input/NORMAL1.jpeg',
+            picOutput:'/pneumonia_output/img.png'
+        }
     }
+
+    onClickDropDown = (event,data) => {
+        // this.setState({activeNum : 0}, () => { console.log(this.state.activeNum) });
+        // alert("主页...")
+        
+        urlInput = data.value;
+        console.log(urlInput);
+        this.setState({picInput:urlInput});
+        
+    }
+
     render() {
         return (
             <div>
@@ -33,30 +86,31 @@ class Model1 extends Component {
                 <Container>
                     <Grid >
                         <Grid.Row centered>
-                            <Grid.Column width={6} >
-                                <Image
-                                    src='https://react.semantic-ui.com/images/wireframe/image-text.png'
-                                    as='a'
-                                    target='_blank'
+                            <Grid.Column width={7} >
+                                <img
+                                    src={this.state.picInput}
                                 />
                             </Grid.Column>
 
 
-                            <Grid.Column width={6}>
-                                <Image
-                                        src='https://react.semantic-ui.com/images/wireframe/image-text.png'
-                                        as='a'
-                                        target='_blank'
+                            <Grid.Column width={7}>
+                                <img
+                                    src={urlOutput}
                                     />
+
                             </Grid.Column>
-                            <Grid.Column width={2}>
-                                检测结果
-                            </Grid.Column>
+
                         </Grid.Row>
 
                         <Grid.Row  centered columns={10}>
                             <Grid.Column width={8}>
-                                    <DropdownExampleSelection/>
+                                    <Dropdown
+                                        placeholder='Select Photo'
+                                        fluid
+                                        selection
+                                        options={photoOptions}
+                                        onChange={this.onClickDropDown}
+                                      />
 
                             </Grid.Column>
 
