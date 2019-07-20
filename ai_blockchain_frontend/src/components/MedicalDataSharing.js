@@ -27,7 +27,31 @@ var headerStyle = {
     color: "#FFFFFF"
 }
 
+let HOSTPITAL_URL = 'http://192.168.43.244:8080/getHospitalRecords'
+let PATIENT_REQUEST_URL = 'http://192.168.43.244:8080/getPatientRequests'
+let PATIENT_INFO_URL =  'http://192.168.43.244:8080/getPatientInfo'
+let PLATFORM_URL = 'http://192.168.43.244:8080/getPlatformRecords'
+
+var hospicals = {}
+var doctors = {}
+var patients = {}
+var platforms = {}
+
 class MedicalDataSharing extends Component {
+
+    async componentWillMount() {
+        console.log("组件即将加载")
+        fetch(HOSTPITAL_URL, {
+            method: 'GET'
+        }).then((response) => {
+            console.log("请求返回结果")
+            alert("请求结果：", response)
+            console.log("请求结果：", response)
+            hospicals = response.json
+            alert("hospitals info: ", hospicals)
+        });
+    }
+
     render() {
         let hospitals = [
             { label: "浙江大学第一附属" },

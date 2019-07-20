@@ -1,68 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Time: 20190720
 
-## Available Scripts
+### 前端工程结构
 
-In the project directory, you can run:
+- 主页
+- 数据共享
+- 联邦学习
+- AI市场
 
-### `npm start`
+文件结构：
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `ai_blockchain_frontend`
+    - `public`
+    - `src`
+        - `components`
+            - 各种自定义组件
+        - `css`
+        - `images`
+        - `reducers`
+        - `routes`
+        - `App.js`
+        - `index.js`
+    - `package.json`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### 入口文件：`index.js`
 
-### `npm test`
+包含组件：
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `App.js`
 
-### `npm run build`
+### 主页： `/`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`App.js`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**包含组件**：
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `NewHomePage.js`
+    - `NavBar.js`
+    - 补充的图像，文字等基本元素
+- `Footer.js`
 
-### `npm run eject`
+### 数据共享：`MedicalDataSharing.js`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**包含组件**：
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `NavBar.js`
+- `Hospital.js`
+- `Doctor.js`
+- `Patient.js`
+- `Platform.js`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 联邦学习：`FederatedLearning.js`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**包含组件：**
 
-## Learn More
+- `NavBar.js`
+- `ModelServiceDemands.js` 我的模型需求组件
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### AI市场：`AIMarket.js`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**包含组件：**
 
-### Code Splitting
+- `NavBar.js`
+- 三个模型列表，基本元素
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

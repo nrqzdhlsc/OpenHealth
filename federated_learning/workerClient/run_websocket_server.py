@@ -8,7 +8,11 @@ import argparse
 from torchvision import datasets, transforms
 import numpy as np
 
-import requests
+import sys
+sys.path.append("..")
+from Bridge.httpBridge import sendData
+
+
 
 hook = sy.TorchHook(torch)
 
@@ -82,11 +86,10 @@ httpData['format'] = data_format # 0 is text; 1 is img
 httpData['description'] = str(args.id)
 httpData['info'] = "GET "+ str(httpData['host']) + ":" + str(httpData['port']) + "/workers/" + str(args.id) + " HTTP/1.1"
 
-print(httpData)
-
 server_ip = "http://127.0.0.1:5000"
 
-requests.post(server_ip,data=httpData)
+sendData(server_ip,httpData)
+#requests.post(server_ip,data=httpData)
 
 kwargs = {
     "id": args.id,

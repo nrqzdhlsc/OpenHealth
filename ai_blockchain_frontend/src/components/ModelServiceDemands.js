@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FederatedLearningModal from './FederatedLearningModal';
+
 import {
     Card,
     Image,
@@ -23,10 +25,10 @@ const ModelServiceDemands = () => (
         <Card fluid>
             <Card.Content>
                 {/* <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' /> */}
-                <Button primary floated="right" onClick={onClickModel1}>
+                <FederatedLearningModal showBtn={<Button primary disabled floated="right">
                     <Icon name="hand point up" />
                     选择
-                </Button>
+                </Button>}/>
                 <Card.Header>X光片检测肺炎AI模型1</Card.Header>
                 <Card.Meta>肺炎检测</Card.Meta>
                 <Card.Description>
@@ -36,7 +38,7 @@ const ModelServiceDemands = () => (
         </Card>
         <Card fluid>
             <Card.Content>
-                <Button primary floated="right" onClick={onClickModel1}>
+                <Button primary disabled floated="right" onClick={onClickModel1}>
                     <Icon name="hand point up" />
                     选择
                 </Button>
@@ -49,7 +51,7 @@ const ModelServiceDemands = () => (
         </Card>
         <Card fluid>
             <Card.Content>
-                <Button primary floated="right" onClick={onClickModel1}>
+                <Button primary disabled floated="right" onClick={onClickModel1}>
                     <Icon name="hand point up" />
                     选择
                 </Button>

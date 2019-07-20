@@ -16,29 +16,58 @@ const getWidth = () => {
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 }
 
+let flag = 0;
+
 /* Heads up!
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
 class NavBar extends Component {
-    state = {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeNum: 0
+        };
+    }
 
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
 
+    // 主页
+    onClickMainPage = () => {
+        // this.setState({activeNum : 0}, () => { console.log(this.state.activeNum) });
+        // alert("主页...")
+        flag = 0;
+    }
+
     // 数据共享
-    onClickMedicalDataSharing = (e) => {
+    onClickMedicalDataSharing = () => {
+        // this.setState({activeNum : 1}, () => {
+        //     console.log(this.state.activeNum)
+        // });
+        flag = 1;
+        
         // alert("数据共享页面...")
         // this.style.className = "active"
     }
 
     // 联邦学习
     onClickFTL = () => {
+        // this.setState({activeNum : 2}, () => {
+        //     console.log("FTL",this.state.activeNum)
+        // });
+        flag = 2;
+        
         // alert("联邦学习页面...")
     }
 
     // AI市场
     onClickAIMarket = () => {
+        // this.setState({activeNum : 3}, () => {
+        //     console.log(this.state.activeNum);
+        // });
+        flag = 3;
+        
         // alert("AI市场页面...")
     }
 
@@ -52,10 +81,7 @@ class NavBar extends Component {
         // alert("注册...")
     }
 
-    // 主页
-    onClickMainPage = () => {
-        // alert("主页...")
-    }
+    
 
     render() {
         const { children } = this.props
@@ -85,10 +111,10 @@ class NavBar extends Component {
                                 <Menu.Item> 
                                     <Icon name="cloud" size="large" color="blue"></Icon>
                                 </Menu.Item>
-                                <Menu.Item as={Link} to="/" className="nav-link" active onClick={this.onClickMainPage} >主页</Menu.Item>
-                                <Menu.Item as={Link} to="/medical-data-sharing" id="sharing" className="nav-link" onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
-                                <Menu.Item as={Link} to="/federated-learning" onClick={this.onClickFTL}>联邦学习</Menu.Item>
-                                <Menu.Item as={Link} to="/ai-market" onClick={this.onClickAIMarket}>AI市场</Menu.Item>
+                                <Menu.Item as={Link} to="/" className={flag == 0 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickMainPage} >主页</Menu.Item>
+                                <Menu.Item as={Link} to="/medical-data-sharing" className={ flag ==1 ? "active nav-link" : "inactive nav-link"} id="sharing"  onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
+                                <Menu.Item as={Link} to="/federated-learning" className={ flag ==2 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickFTL}>联邦学习</Menu.Item>
+                                <Menu.Item as={Link} to="/ai-market" className={ flag ==3 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickAIMarket}>AI市场</Menu.Item>
                                 
                                 {/* <Menu.Item position='right'>
                                     <Button as={Link} to="/login" display={"none"} inverted={!fixed} onClick={this.onLogin}>

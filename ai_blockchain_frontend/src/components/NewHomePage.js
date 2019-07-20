@@ -53,7 +53,7 @@ class NewHomePage extends Component {
                         以患者为中心的医疗数据共享平台。
                     </Header>
                 </div> 
-                <div stackable className="solution-details">
+                <div className="solution-details">
                     <br/>
                     <Header as="h1" className="solution-bg">
                         方案全景图
