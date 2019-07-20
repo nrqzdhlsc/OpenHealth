@@ -62,7 +62,10 @@ class FederatedLearning extends Component {
                                         href='/model1'
                                         target='_blank'
                                     />
-                                    <Card.Description fluid>
+                                    <Card.Header as="h3">
+                                        肺炎检测模型
+                                    </Card.Header>
+                                    <Card.Description>
                                         模型描述
                                     </Card.Description>
                                 </Card>
@@ -76,7 +79,10 @@ class FederatedLearning extends Component {
                                         href='/model1'
                                         target='_blank'
                                     />
-                                    <Card.Description fluid>
+                                    <Card.Header as="h3">
+                                        临床报告阅读理解模型
+                                    </Card.Header>
+                                    <Card.Description>
                                         模型描述
                                     </Card.Description>
                                 </Card>
@@ -89,7 +95,10 @@ class FederatedLearning extends Component {
                                         href='/model1'
                                         target='_blank'
                                     />
-                                    <Card.Description fluid>
+                                    <Card.Header as="h3">
+                                        医嘱药物推荐模型
+                                    </Card.Header>
+                                    <Card.Description>
                                         模型描述
                                     </Card.Description>
                                 </Card>
