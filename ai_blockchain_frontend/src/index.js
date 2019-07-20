@@ -11,6 +11,7 @@ import FederatedLearning from './components/FederatedLearning';
 import AIMarket from './components/AIMarket';
 import Login from './components/Login';
 import Register from './components/Register';
+import Model1 from './components/Model1';
 import ErrorPage from './components/ErrorPage';
 
 ReactDOM.render(
@@ -23,6 +24,7 @@ ReactDOM.render(
                 <Route path="/ai-market" component={AIMarket}/>
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/model1" component={Model1} />
                 <Route path="/error" component={ErrorPage} />
             </Switch>
         </div>

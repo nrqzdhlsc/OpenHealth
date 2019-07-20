@@ -21,13 +21,19 @@ const getWidth = () => {
  * It can be more complicated, but you can create really flexible markup.
  */
 class NavBar extends Component {
-    state = {}
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
 
     // 数据共享
     onClickMedicalDataSharing = (e) => {
+        var items = document.getElementsByClassName('nav-link')
+        alert("items: ", items)
+        console.log("选中目标：", e.target);
         // alert("数据共享页面...")
         // this.style.className = "active"
     }
@@ -85,10 +91,10 @@ class NavBar extends Component {
                                 <Menu.Item> 
                                     <Icon name="cloud" size="large" color="blue"></Icon>
                                 </Menu.Item>
-                                <Menu.Item as={Link} to="/" className="active nav-link" onClick={this.onClickMainPage} >主页</Menu.Item>
-                                <Menu.Item as={Link} to="/medical-data-sharing" id="sharing" className="nav-link" onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
-                                <Menu.Item as={Link} to="/federated-learning" onClick={this.onClickFTL}>联邦学习</Menu.Item>
-                                <Menu.Item as={Link} to="/ai-market" onClick={this.onClickAIMarket}>AI市场</Menu.Item>
+                                <Menu.Item as={Link} to="/" className="nav-link" active onClick={this.onClickMainPage} >主页</Menu.Item>
+                                <Menu.Item as={Link} to="/medical-data-sharing" className="nav-link" id="sharing" onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
+                                <Menu.Item as={Link} to="/federated-learning" className="nav-link" onClick={this.onClickFTL}>联邦学习</Menu.Item>
+                                <Menu.Item as={Link} to="/ai-market" className="nav-link" onClick={this.onClickAIMarket}>AI市场</Menu.Item>
                                 
                                 {/* <Menu.Item position='right'>
                                     <Button as={Link} to="/login" display={"none"} inverted={!fixed} onClick={this.onLogin}>
