@@ -1,8 +1,9 @@
 package org.fbc.ai_and_blockchain.utils;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class User {
+public class User implements Serializable {
     private String account;
     private String pubKey;
     private String verifyKey;

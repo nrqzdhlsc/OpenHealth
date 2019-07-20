@@ -30,7 +30,13 @@ public class ReencryptionService {
 
     private HashMap<String, String> data = new HashMap();
 
+    private HashMap<String, String> dict = new HashMap();
+
     private List<String> records = new ArrayList<>();
+
+    private List<PatientRequest> patientRequests = new ArrayList<>();
+
+    private List<PatientInfo> patientInfos = new ArrayList<>();
 
     public Web3j getWeb3j() {
         return web3j;
@@ -54,6 +60,13 @@ public class ReencryptionService {
         final Resource contractResource = new ClassPathResource("contract.properties");
         FileOutputStream fileOutputStream = new FileOutputStream(contractResource.getFile());
         prop.store(fileOutputStream, "contract address");
+    }
+
+    public void initData() {
+        dict.put("H_A", "浙大第一附属医院");
+        dict.put("H_B", "北京协和医院");
+        dict.put("D_B", "林医生");
+        dict.put("P_A", "患者老高");
     }
 
     public String loadAssetAddr() throws Exception {
@@ -171,8 +184,8 @@ public class ReencryptionService {
         return ret_code;
     }
 
-    public List<User> getAllPatients() {
-        List<User> result = new ArrayList<>();
+    public List<String> getAllPatients() {
+        List<String> result = new ArrayList<>();
         try {
             String contractAddress = loadAssetAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
@@ -180,7 +193,7 @@ public class ReencryptionService {
             for (BigInteger i : allIndexs) {
                 Tuple4<String, String, String, BigInteger> userInfo = dataBus.getUserByIndex(i).send();
                 User user = new User(userInfo.getValue1(), userInfo.getValue2(), userInfo.getValue3(), userInfo.getValue4());
-                result.add(user);
+                result.add(user.getAccount());
             }
             return result;
         } catch (Exception e) {
@@ -227,6 +240,7 @@ public class ReencryptionService {
                 if (response.get(0).ret.compareTo(new BigInteger("0")) == 0) {
                     System.out.printf(" uploadData Success => account: %s \n", account);
                     returnMap.put("dataId", dataId);
+                    patientInfos.add(0, new PatientInfo(dict.get(account), dataId, 0));
                     return SuperResult.ok(returnMap);
                 } else {
                     System.out.printf(" uploadData fails, retCode is %s \n",
@@ -249,6 +263,70 @@ public class ReencryptionService {
         return data.get("capsule");
     }
 
+    public String genRecord(String doctor, String patient, int type) {
+        initialize();
+        String BJHos = getUserSuperior(doctor);
+        String HZHos = getUserSuperior(patient);
+        String result = "";
+        if (type == 0) {
+            result = dict.get(BJHos) + "的" + dict.get(doctor) + "申请查看" + dict.get(patient) +
+                    "(" + dict.get(HZHos) + ")的病例数据。";
+        } else {
+            result = dict.get(patient) + "(" + dict.get(HZHos) + ")授权了" + dict.get(BJHos) +
+                    "的" + dict.get(doctor) + "的查看请求，平台已分发重加密钥匙给" + dict.get(HZHos) + "，并把患者密文数据发给" + dict.get(doctor) + "。";
+        }
+        return result;
+    }
+
+    public void genAllRecords() {
+        String r1 = "上海复旦大学附属华山医院的赵医生申请查看患者老高(浙大第一附属医院)的病例数据";
+        String r2 = "患者老高(浙大第一附属医院)授权了上海复旦大学附属华山医院的赵医生的查看请求，平台已分发重加密钥匙给浙大第一附属医院，并把患者密文数据发给赵医生。";
+        records.add(r2);
+        records.add(r1);
+    }
+
+    public DataSharingResponse genHospitalRecords() {
+        genAllRecords();
+        return new DataSharingResponse(dict.get("H_A"), records);
+    }
+
+    public RequestResponse genPatientRequests() {
+        String title = dict.get("P_A") + "(" + dict.get("H_A") + ")";
+        patientRequests.add(new PatientRequest("0", "收到赵医生(上海复旦大学附属华山医院)的查看病例请求。", 2));
+        patientRequests.add(new PatientRequest("1", "收到陈医生(华中科技大学同济医学院附属同济医院)的查看病例请求。", 2));
+        RequestResponse result = new RequestResponse(title, patientRequests);
+        return result;
+    }
+
+    public PatientInfoResponse genPatientInfo() {
+        String title = dict.get("D_B") + "(" + dict.get("H_B") + ")";
+        patientInfos.add(new PatientInfo("患者老李", "0", 0));
+        patientInfos.add(new PatientInfo("患者老王", "1", 0));
+        patientInfos.add(new PatientInfo("患者老薛", "2", 0));
+        PatientInfoResponse result = new PatientInfoResponse(title, patientInfos);
+        return result;
+    }
+
+    public DataSharingResponse genPlatformRecords() {
+        String title = "OpenHealth平台";
+        DataSharingResponse result = new DataSharingResponse(title, records);
+        return result;
+    }
+
+
+    public String getUserSuperior(String account) {
+        String result = "";
+        try {
+            String contractAddress = loadAssetAddr();
+            DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
+            String superior = dataBus.getSuperior(account).send();
+            result = superior;
+        } catch (Exception e) {
+            result = "Error";
+        }
+        return result;
+    }
+
     public SuperResult requestForData(String account, String dataId) {
         Map<String, String> returnMap = new HashMap<>();
         try {
@@ -260,6 +338,8 @@ public class ReencryptionService {
             if (!response.isEmpty()) {
                 if (response.get(0).ret.compareTo(new BigInteger("0")) == 0) {
                     System.out.printf(" request for data Success => account: %s, dataId: %s \n", account, dataId);
+                    patientRequests.add(0, new PatientRequest(requestId, "收到" + dict.get("D_B") + "(" + dict.get("H_B") + ")的查看病例请求。", 0));
+                    records.add(0, genRecord(account, "P_A", 0));
                     returnMap.put("requestId", requestId);
                     return SuperResult.ok(returnMap);
                 } else {
@@ -272,6 +352,7 @@ public class ReencryptionService {
             Tuple4<String, String, String, String> dataInfo = dataBus.getData(account, dataId).send();
             Data data = new Data(dataInfo.getValue1(), dataInfo.getValue2(), dataInfo.getValue3(), dataInfo.getValue4());
             String record = account + "申请查看" + data.getOwner() + "的病例数据";
+
             records.add(record);
         } catch (Exception e) {
             System.out.println("request data error");
@@ -324,6 +405,15 @@ public class ReencryptionService {
             if (!response.isEmpty()) {
                 if (response.get(0).ret.compareTo(new BigInteger("0")) == 0) {
                     System.out.printf(" agree for request Success => account: %s, requestId: %s \n", account, requestId);
+                    PatientRequest request = patientRequests.get(0);
+                    request.setStatus(1);
+                    patientRequests.remove(0);
+                    patientRequests.add(0, request);
+                    PatientInfo info = patientInfos.get(0);
+                    info.setStatus(1);
+                    info.setDataURL("http://img.sher.vip/1.jpg");
+                    patientInfos.add(0, info);
+                    records.add(0, genRecord(account, "P_A", 1));
                 } else {
                     System.out.printf(" agree for request fails, retCode is %s \n",
                             response.get(0).ret.toString());

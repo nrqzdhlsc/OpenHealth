@@ -1,6 +1,8 @@
 package org.fbc.ai_and_blockchain.utils;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
     private String dataId;
     private String owner;
     private String relevant;

@@ -15,6 +15,8 @@ contract DataBus {
         uint256 userType; // 0-医院 1-病人 2-医生
     }
 
+    mapping(string => bool) hasSuperior;
+    mapping(string => string) userSuperior;
     mapping(string => bool) hasSubordinate;
     mapping(string => uint256[]) subordinates;
     mapping(string => uint256) getUserIndex;
@@ -62,6 +64,13 @@ contract DataBus {
                 patients.push(userNonce);
             }
             users.push(user);
+            if (hasSuperior[superior]) {
+                string hos = userSuperior[superior];
+                userSuperior[account] = hos;
+            } else {
+                hasSuperior[account] = true;
+                userSuperior[account] = superior;
+            }
             getUserIndex[account] = userNonce;
             isUserRegistered[account] = true;
             subordinates[superior].push(userNonce);
@@ -70,6 +79,10 @@ contract DataBus {
         }
         emit SubordinateRegisterEvent(ret_code, account, superior, userType);
         return ret_code;
+    }
+
+    function getSuperior(string account) public constant returns (string){
+        return userSuperior[account];
     }
 
     function getUserPubKey(string account) public constant returns (string){

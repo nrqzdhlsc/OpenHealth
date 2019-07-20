@@ -1,8 +1,9 @@
 package org.fbc.ai_and_blockchain.utils;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Request {
+public class Request implements Serializable {
     private String requestId;
     private String owner;
     private String dataId;
