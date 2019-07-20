@@ -27,29 +27,56 @@ var headerStyle = {
     color: "#FFFFFF"
 }
 
-let HOSTPITAL_URL = 'http://192.168.43.244:8080/getHospitalRecords'
-let PATIENT_REQUEST_URL = 'http://192.168.43.244:8080/getPatientRequests'
-let PATIENT_INFO_URL =  'http://192.168.43.244:8080/getPatientInfo'
-let PLATFORM_URL = 'http://192.168.43.244:8080/getPlatformRecords'
+let HOST = "http://10.0.0.117:8080"
 
-var hospicals = {}
+let HOSTPITAL_URL = HOST + '/getHospitalRecords'
+let PATIENT_REQUEST_URL = HOST + '/getPatientRequests'
+let PATIENT_INFO_URL = HOST + '/getPatientInfo'
+let PLATFORM_URL = HOST + '/getPlatformRecords'
+
+var hospitals = {}
 var doctors = {}
 var patients = {}
 var platforms = {}
 
 class MedicalDataSharing extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            hospitals: hospitals,
+            doctors: doctors,
+            patients: patients,
+            platforms: platforms
+        };
+    }
+
     async componentWillMount() {
         console.log("组件即将加载")
-        fetch(HOSTPITAL_URL, {
+
+        // 医院视角下的数据流
+        hospitals = await fetch(HOSTPITAL_URL, {
             method: 'GET'
-        }).then((response) => {
-            console.log("请求返回结果")
-            alert("请求结果：", response)
-            console.log("请求结果：", response)
-            hospicals = response.json
-            alert("hospitals info: ", hospicals)
-        });
+        }).then((response) => response.json());
+        console.log(hospitals)
+
+        // 患者消息列表
+        patients = await fetch(PATIENT_REQUEST_URL, {
+            method: 'GET'
+        }).then((response) => response.json());
+        console.log("患者消息：", patients);
+
+        // 医生可查看所有患者列表
+        doctors = await fetch(PATIENT_INFO_URL, {
+            method: 'GET'
+        }).then((response) => response.json());
+        console.log("医生可查看所有患者列表：", doctors);
+
+        // 平台可查看信息
+        platforms = await fetch(PLATFORM_URL, {
+            method: 'GET'
+        }).then((response) => response.json());
+        console.log("平台可查看信息：", platforms);
     }
 
     render() {
@@ -95,7 +122,7 @@ class MedicalDataSharing extends Component {
                 <Grid columns='equal' celled>
                     <Grid.Row columns='equal'>
                         <Grid.Column>
-                            <Hospital info={hospitals[0]} />
+                            <Hospital info={this.state.hospitals["title"]} />
                         </Grid.Column>
                         <Grid.Column>
                             <Patient info={patients[0]} />
