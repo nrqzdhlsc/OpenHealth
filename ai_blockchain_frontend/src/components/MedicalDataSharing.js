@@ -27,16 +27,28 @@ var headerStyle = {
     color: "#FFFFFF"
 }
 
-let TEST_URL = 'http://10.0.0.117:8080/deployDataBus';
+let HOSTPITAL_URL = 'http://192.168.43.244:8080/getHospitalRecords'
+let PATIENT_REQUEST_URL = 'http://192.168.43.244:8080/getPatientRequests'
+let PATIENT_INFO_URL =  'http://192.168.43.244:8080/getPatientInfo'
+let PLATFORM_URL = 'http://192.168.43.244:8080/getPlatformRecords'
 
+var hospicals = {}
+var doctors = {}
+var patients = {}
+var platforms = {}
 
 class MedicalDataSharing extends Component {
+
     async componentWillMount() {
-        let hospitals = await fetch(TEST_URL, {
-            method: 'POST',
-            body: "",
+        console.log("组件即将加载")
+        fetch(HOSTPITAL_URL, {
+            method: 'GET'
         }).then((response) => {
+            console.log("请求返回结果")
             alert("请求结果：", response)
+            console.log("请求结果：", response)
+            hospicals = response.json
+            alert("hospitals info: ", hospicals)
         });
     }
 
