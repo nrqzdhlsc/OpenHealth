@@ -80,7 +80,6 @@ class Model1 extends Component {
         this.setState({picLabel:photoOptions[data.value].text});
         this.setState({picOutputStatus:photoOptions[data.value].key})
         this.setState({isOutputShow:false});
-        
     }
 
     onClickButton = () => {

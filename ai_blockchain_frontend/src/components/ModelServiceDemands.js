@@ -29,7 +29,7 @@ const ModelServiceDemands = () => (
                     <Icon name="hand point up" />
                     选择
                 </Button>}/>
-                <Card.Header>X光片检测肺炎AI模型1</Card.Header>
+                <Card.Header>X光片检测肺炎AI模型</Card.Header>
                 <Card.Meta>肺炎检测</Card.Meta>
                 <Card.Description>
                     Et deserunt aliqua commodo in pariatur commodo excepteur culpa non sit magna.
@@ -42,8 +42,8 @@ const ModelServiceDemands = () => (
                     <Icon name="hand point up" />
                     选择
                 </Button>
-                <Card.Header>X光片检测肺炎AI模型2</Card.Header>
-                <Card.Meta>肺炎检测</Card.Meta>
+                <Card.Header>临床报告阅读理解模型</Card.Header>
+                <Card.Meta>内容理解</Card.Meta>
                 <Card.Description>
                     Excepteur consequat eiusmod pariatur ex sint in exercitation labore eiusmod eu amet officia amet.
                 </Card.Description>
@@ -55,8 +55,8 @@ const ModelServiceDemands = () => (
                     <Icon name="hand point up" />
                     选择
                 </Button>
-                <Card.Header>X光片检测肺炎AI模型3</Card.Header>
-                <Card.Meta>肺炎检测</Card.Meta>
+                <Card.Header>医嘱药物推荐模型</Card.Header>
+                <Card.Meta>推荐模型</Card.Meta>
                 <Card.Description>
                     Velit dolor qui consequat veniam sit consectetur.
                 </Card.Description>
