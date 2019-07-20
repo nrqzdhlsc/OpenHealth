@@ -28,7 +28,7 @@ class Patient extends Component {
         return (
             <Card>
                 <Card.Content>
-                    <Card.Header>{ this.props.info["label"] }</Card.Header>
+                    <Card.Header>{ this.props.info["title"] }</Card.Header>
                 </Card.Content>
                 <Card.Content>
                     <Feed>

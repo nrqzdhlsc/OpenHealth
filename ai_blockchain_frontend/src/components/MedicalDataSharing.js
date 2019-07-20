@@ -34,10 +34,10 @@ let PATIENT_REQUEST_URL = HOST + '/getPatientRequests'
 let PATIENT_INFO_URL = HOST + '/getPatientInfo'
 let PLATFORM_URL = HOST + '/getPlatformRecords'
 
-var hospitals = {}
-var doctors = {}
-var patients = {}
-var platforms = {}
+var hospitals = []
+var doctors = []
+var patients = []
+var platforms = []
 
 class MedicalDataSharing extends Component {
 
@@ -51,16 +51,40 @@ class MedicalDataSharing extends Component {
         };
     }
 
-    async componentWillMount() {
+    componentWillMount() {
         console.log("组件即将加载")
 
         // 医院视角下的数据流
-        hospitals = await fetch(HOSTPITAL_URL, {
+        fetch(HOSTPITAL_URL, {
             method: 'GET'
-        }).then((response) => response.json());
-        console.log(hospitals)
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data)  
+            console.log(this.state.hospitals)
+            this.setState({
+               hospitals:data.data
+            },function(){
+                console.log("in");
+                console.log(this.state.hospitals)
+            })
+        });
+        
 
         // 患者消息列表
+        fetch(PATIENT_REQUEST_URL, {
+            method: 'GET'
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data)  
+            console.log(this.state.patients)
+            this.setState({
+               patients:data.data
+            },function(){
+                console.log("in");
+                console.log(this.state.patients)
+            })
+        });
+        /*
         patients = await fetch(PATIENT_REQUEST_URL, {
             method: 'GET'
         }).then((response) => response.json());
@@ -72,11 +96,41 @@ class MedicalDataSharing extends Component {
         }).then((response) => response.json());
         console.log("医生可查看所有患者列表：", doctors);
 
+
         // 平台可查看信息
         platforms = await fetch(PLATFORM_URL, {
             method: 'GET'
         }).then((response) => response.json());
         console.log("平台可查看信息：", platforms);
+        */
+
+        fetch(PATIENT_INFO_URL, {
+            method: 'GET'
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data)  
+            console.log(this.state.doctors)
+            this.setState({
+               doctors:data.data
+            },function(){
+                console.log("in");
+                console.log(this.state.doctors)
+            })
+        });
+
+        fetch(PLATFORM_URL, {
+            method: 'GET'
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data)  
+            console.log(this.state.platforms)
+            this.setState({
+               platforms:data.data
+            },function(){
+                console.log("in");
+                console.log(this.state.platforms)
+            })
+        });
     }
 
     render() {
@@ -121,17 +175,18 @@ class MedicalDataSharing extends Component {
                         </Header>
                 <Grid columns='equal' celled>
                     <Grid.Row columns='equal'>
+
                         <Grid.Column>
-                            <Hospital info={this.state.hospitals["title"]} />
+                            <Hospital info={this.state.hospitals} />
                         </Grid.Column>
                         <Grid.Column>
-                            <Patient info={patients[0]} />
+                            <Patient info={this.state.patients} />
                         </Grid.Column>
                         <Grid.Column>
-                            <Doctor info={doctors[0]} />
+                            <Doctor info={this.state.doctors} />
                         </Grid.Column>
                         <Grid.Column>
-                            <Platform info={platforms[0]} />
+                            <Platform info={this.state.platforms} />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

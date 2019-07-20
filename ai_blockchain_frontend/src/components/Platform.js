@@ -10,7 +10,7 @@ class Platform extends Component {
         return (
             <Card>
                 <Card.Content>
-                    <Card.Header textAlign="left">{this.props.info["label"]}</Card.Header>
+                    <Card.Header textAlign="left">{this.props.info["title"]}</Card.Header>
                 </Card.Content>
                 <Card.Content>
                     <Feed>
