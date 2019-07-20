@@ -1,0 +1,14 @@
+.main-link,
+.main-link:link,
+.main-link:visited {
+    text-decoration: none;
+    font-size: 2rem;
+    color: orange;
+    font-weight: 900;
+    padding: 0.2rem 2rem;
+}
+.main-link:hover,
+.main-link:active {
+    text-decoration: underline overline;
+    color: orangered;
+}
