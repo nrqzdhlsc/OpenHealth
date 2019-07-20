@@ -27,6 +27,15 @@ var headerStyle = {
 var gridStyle = {
     margin: "20px"
 }
+
+let pic1 = '/AI_Market/AIDetection.jpeg'
+let pic2 = '/AI_Market/Drug.jpeg'
+let pic3 = '/AI_Market/Record.jpg'
+
+let fixedSize = {
+    height:"400px",
+}
+
 class FederatedLearning extends Component {
     render() {
         return (
@@ -54,10 +63,9 @@ class FederatedLearning extends Component {
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column width={5}>
-                                <Card>
+                                <Card style={fixedSize}>
                                     <Image
-                                        src='https://react.semantic-ui.com/images/wireframe/image-text.png'
-                                        as='a'
+                                        src={pic1}
                                         size='medium'
                                         href='/model1'
                                         target='_blank'
@@ -71,13 +79,12 @@ class FederatedLearning extends Component {
                                 </Card>
                             </Grid.Column>
                             <Grid.Column width={5}>
-                                <Card>
+                                <Card style={fixedSize}>
                                     <Image
-                                        src='https://react.semantic-ui.com/images/wireframe/image-text.png'
-                                        as='a'
+                                        src={pic2}
                                         size='medium'
-                                        href='/model1'
                                         target='_blank'
+
                                     />
                                     <Card.Header as="h3">
                                         临床报告阅读理解模型
@@ -88,11 +95,10 @@ class FederatedLearning extends Component {
                                 </Card>
                             </Grid.Column>
                             <Grid.Column width={5}>
-                                <Card>
+                                <Card style={fixedSize}>
                                     <Image
-                                        src='https://react.semantic-ui.com/images/wireframe/image-text.png'
+                                        src={pic3}
                                         size='medium'
-                                        href='/model1'
                                         target='_blank'
                                     />
                                     <Card.Header as="h3">
