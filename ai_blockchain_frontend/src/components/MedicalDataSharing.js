@@ -27,7 +27,7 @@ var headerStyle = {
     color: "#FFFFFF"
 }
 
-let HOST = "http://10.0.0.117:8080"
+let HOST = "http://localhost:8080"
 
 let HOSTPITAL_URL = HOST + '/getHospitalRecords'
 let PATIENT_REQUEST_URL = HOST + '/getPatientRequests'
@@ -47,9 +47,21 @@ class MedicalDataSharing extends Component {
             hospitals: hospitals,
             doctors: doctors,
             patients: patients,
-            platforms: platforms
+            platforms: platforms,
+            buttonType: -1,
+            buttonStatus: 0
         };
     }
+
+    onClickRequest = (buttonType,buttonStatus) =>{
+        console.log("调用onClickRequest: ",buttonType)
+        this.setState({
+            buttonType: buttonType,
+            buttonStatus: buttonStatus
+        })
+        fetch()
+    }
+
 
     componentWillMount() {
         console.log("组件即将加载")
@@ -155,7 +167,7 @@ class MedicalDataSharing extends Component {
                 </Container>
                 
                 {/* <DataSharingDesc /> */}
-                <Header as="h1" textAlign='center'>
+                <Header as="h1" textAlign='center' id='function'>
                             功能演示
                         </Header>
                 <Grid columns='equal' celled>
@@ -168,7 +180,7 @@ class MedicalDataSharing extends Component {
                             <Patient info={this.state.patients} />
                         </Grid.Column>
                         <Grid.Column>
-                            <Doctor info={this.state.doctors} />
+                            <Doctor info={this.state.doctors} buttonType={this.state.buttonType} buttonStatus={this.state.buttonStatus} onClickRequest={this.onClickRequest}/>
                         </Grid.Column>
                         <Grid.Column>
                             <Platform info={this.state.platforms} />

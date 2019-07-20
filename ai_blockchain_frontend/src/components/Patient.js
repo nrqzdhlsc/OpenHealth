@@ -1,13 +1,36 @@
-import React, { Component, If } from 'react';
+import React, { Component } from 'react';
 import { Card, Feed } from 'semantic-ui-react';
 
 import {
     Button
 } from 'semantic-ui-react';
 
+let HOST = "http://localhost:8080"
+let CONFIRM_REQUEST= HOST + '/agreeForRequest'
+
 // 确认查看请求
-const onClickConfirm = () => {
-    alert("确认")
+const onClickConfirm = (requestId) => {
+    console.log("确认")
+    var details = {
+        "account": "P_A",
+        "requestId": requestId
+    }
+    var formBody = [];
+    for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    let response = fetch(CONFIRM_REQUEST, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body:formBody
+    }).then((response) => response.json())
+    console.log(response);
+    // window.location.href="http://localhost:3000/medical-data-sharing";
 }
 
 // 拒绝查看请求
@@ -42,19 +65,14 @@ class Patient extends Component {
                                         { item.requestInfo }
                                         <br />
                                         {/* 2：已拒绝， 1：已确认，0：两个按钮都存在 */}
-                                        { item.status === 2 ? (() => (
-                                            <div>
-                                                <Button positive onClick={onClickConfirm}>确认</Button>
-                                                <Button negative onClick={onClickReject}>拒绝</Button>
-                                            </div>
-                                        )) : () => {} }
-                                        {item.status === 1 ? (() => (
-                                            <div>
-                                                <Button positive onClick={onClickConfirm}>确认</Button>
-                                                <Button negative onClick={onClickReject}>拒绝</Button>
-                                            </div>
-                                        )) : () => { }}
-                                        
+                                        {item.status === 0 ? <div>
+                                            <Button positive onClick={() => onClickConfirm && onClickConfirm(item.requestId)}>确认</Button>
+                                            <Button negative onClick={onClickReject}>拒绝</Button>
+                                        </div>: item.status === 1 ?<div>
+                                            <Button disabled>已确认</Button>
+                                        </div>:<div>
+                                            <Button disabled>已拒绝</Button>
+                                        </div>}
                                     </Feed.Summary>
                                 </Feed.Content>
                             </Feed.Event>)))}

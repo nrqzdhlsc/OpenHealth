@@ -47,7 +47,7 @@ class FederatedLearning extends Component {
                             AI市场
                         </Header>
                         <Header as="h3" className="data-desc" style={headerStyle}>
-                            Pariatur nisi culpa minim aliquip consectetur.。
+                            人工智能模型服务市场。
                     </Header>
                     </div>
 
@@ -74,7 +74,7 @@ class FederatedLearning extends Component {
                                         肺炎检测模型
                                     </Card.Header>
                                     <Card.Description>
-                                        Consequat mollit aliquip id enim duis do minim dolore sit laborum fugiat.
+                                        模型根据输入的图片判断是否为健康肺或者有肺炎症状。
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
@@ -89,7 +89,7 @@ class FederatedLearning extends Component {
                                         临床报告阅读理解模型
                                     </Card.Header>
                                     <Card.Description>
-                                        Quis nostrud ex qui culpa cupidatat incididunt.
+                                        AI助手，可快速回复医生或一般用户的医学问题。
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
@@ -104,7 +104,7 @@ class FederatedLearning extends Component {
                                         医嘱药物推荐模型
                                     </Card.Header>
                                     <Card.Description>
-                                        Voluptate amet reprehenderit ut sunt minim eiusmod do.
+                                        可根据病情，以往病史，诊断结果给出医嘱药物组合推荐。
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
