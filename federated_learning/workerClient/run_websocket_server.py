@@ -79,7 +79,7 @@ httpData['port'] = args.port
 httpData['amount'] = batch_size
 httpData['totalSize'] = batch_size*256 #TODO
 httpData['format'] = data_format # 0 is text; 1 is img
-httpData['description'] = str(args.id) + "'s data and amount of data is "+str(batch_size)
+httpData['description'] = str(args.id)
 httpData['info'] = "GET "+ str(httpData['host']) + ":" + str(httpData['port']) + "/workers/" + str(args.id) + " HTTP/1.1"
 
 print(httpData)
