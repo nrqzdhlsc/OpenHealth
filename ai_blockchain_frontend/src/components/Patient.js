@@ -25,6 +25,7 @@ class Patient extends Component {
         }
     }
     render() {
+        let messages = this.props.info.requests;
         return (
             <Card>
                 <Card.Content>
@@ -32,44 +33,26 @@ class Patient extends Component {
                 </Card.Content>
                 <Card.Content>
                     <Feed>
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/elliot.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='1分钟前' />
-                                <Feed.Summary>
-                                    收到<a>小林医生（北京协和医院）</a> 查看病例请求。
-                                    <br />
-                                    <Button positive onClick={onClickConfirm}>确认</Button>
-                                    <Button negative onClick={onClickReject}>拒绝</Button>
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
+                        {messages === undefined ? () => { } : (messages.map((item, index) =>
+                            (<Feed.Event>
+                                <Feed.Label image={require('../images/avatar/small/jenny.jpg')} />
+                                <Feed.Content>
+                                    <Feed.Date content='5分钟前' />
+                                    <Feed.Summary>
+                                        { item.requestInfo }
+                                        <br />
+                                        {/* 2：已拒绝， 1：已确认，0：两个按钮都存在 */}
+                                        { item.status === 2 ? () => (
+                                            <div>
+                                                <Button positive onClick={onClickConfirm}>确认</Button>
+                                                <Button negative onClick={onClickReject}>拒绝</Button>
+                                            </div>
+                                        ) : () => {} }
+                                        
+                                    </Feed.Summary>
+                                </Feed.Content>
+                            </Feed.Event>)))}
 
-                        <Feed.Event>
-                            <Feed.Label image={ require('../images/avatar/small/molly.png')} />
-                            <Feed.Content>
-                                <Feed.Date content='1天前' />
-                                <Feed.Summary>
-                                    收到<a>赵医生（上海复旦大学附属华山医院）</a>的查看病例请求。
-                                    <br />
-                                    <Button positive onClick={onClickConfirm}>确认</Button>
-                                    <Button negative onClick={onClickReject}>拒绝</Button>
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
-
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/elliot.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='1周前' />
-                                <Feed.Summary>
-                                    收到<a>陈医生（华中科技大学同济医学院附属同济医院）</a>的查看病例请求。
-                                    <br />
-                                    <Button positive onClick={onClickConfirm}>确认</Button>
-                                    <Button negative onClick={onClickReject}>拒绝</Button>
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
                     </Feed>
                 </Card.Content>
             </Card>

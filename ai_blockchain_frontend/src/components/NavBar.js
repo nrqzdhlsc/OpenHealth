@@ -111,10 +111,10 @@ class NavBar extends Component {
                                 <Menu.Item> 
                                     <Icon name="cloud" size="large" color="blue"></Icon>
                                 </Menu.Item>
-                                <Menu.Item as={Link} to="/" className={flag == 0 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickMainPage} >主页</Menu.Item>
-                                <Menu.Item as={Link} to="/medical-data-sharing" className={ flag ==1 ? "active nav-link" : "inactive nav-link"} id="sharing"  onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
-                                <Menu.Item as={Link} to="/federated-learning" className={ flag ==2 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickFTL}>联邦学习</Menu.Item>
-                                <Menu.Item as={Link} to="/ai-market" className={ flag ==3 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickAIMarket}>AI市场</Menu.Item>
+                                <Menu.Item as={Link} to="/" className={flag === 0 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickMainPage} >主页</Menu.Item>
+                                <Menu.Item as={Link} to="/medical-data-sharing" className={ flag === 1 ? "active nav-link" : "inactive nav-link"} id="sharing"  onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
+                                <Menu.Item as={Link} to="/federated-learning" className={ flag === 2 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickFTL}>联邦学习</Menu.Item>
+                                <Menu.Item as={Link} to="/ai-market" className={ flag === 3 ? "active nav-link" : "inactive nav-link"} onClick={this.onClickAIMarket}>AI市场</Menu.Item>
                                 
                                 {/* <Menu.Item position='right'>
                                     <Button as={Link} to="/login" display={"none"} inverted={!fixed} onClick={this.onLogin}>

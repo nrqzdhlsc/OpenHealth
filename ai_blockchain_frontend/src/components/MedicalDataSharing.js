@@ -53,13 +53,12 @@ class MedicalDataSharing extends Component {
 
     componentWillMount() {
         console.log("组件即将加载")
-
         // 医院视角下的数据流
         fetch(HOSTPITAL_URL, {
             method: 'GET'
         }).then((response) => response.json())
         .then((data) => {
-            console.log(data)  
+            console.log("data: ", data)  
             console.log(this.state.hospitals)
             this.setState({
                hospitals:data.data
@@ -69,13 +68,12 @@ class MedicalDataSharing extends Component {
             })
         });
         
-
         // 患者消息列表
         fetch(PATIENT_REQUEST_URL, {
             method: 'GET'
         }).then((response) => response.json())
         .then((data) => {
-            console.log(data)  
+            console.log("data: ", data)  
             console.log(this.state.patients)
             this.setState({
                patients:data.data
@@ -84,6 +82,7 @@ class MedicalDataSharing extends Component {
                 console.log(this.state.patients)
             })
         });
+        // 异步方式，待DEBUG
         /*
         patients = await fetch(PATIENT_REQUEST_URL, {
             method: 'GET'
@@ -108,11 +107,11 @@ class MedicalDataSharing extends Component {
             method: 'GET'
         }).then((response) => response.json())
         .then((data) => {
-            console.log(data)  
+            console.log("data: ", data)  
             console.log(this.state.doctors)
             this.setState({
-               doctors:data.data
-            },function(){
+               doctors: data.data
+            }, function(){
                 console.log("in");
                 console.log(this.state.doctors)
             })
@@ -122,31 +121,17 @@ class MedicalDataSharing extends Component {
             method: 'GET'
         }).then((response) => response.json())
         .then((data) => {
-            console.log(data)  
+            console.log("data: ", data)  
             console.log(this.state.platforms)
             this.setState({
                platforms:data.data
-            },function(){
+            }, function(){
                 console.log("in");
                 console.log(this.state.platforms)
             })
         });
     }
-
     render() {
-        let hospitals = [
-            { label: "浙江大学第一附属" },
-        ]
-        let doctors = [
-            { label: "医生小林（北京协和医院）" }
-        ]
-        let patients = [
-            { label: "患者老高（浙大第一附属医院）" }
-        ]
-
-        let platforms = [
-            { label: "OpenHealth平台" }
-        ]
         return (
             <div>
                 <NavBar />
@@ -175,8 +160,8 @@ class MedicalDataSharing extends Component {
                         </Header>
                 <Grid columns='equal' celled>
                     <Grid.Row columns='equal'>
-
                         <Grid.Column>
+                            {/* "title": "xxx", "allInfo": "xxx" */}
                             <Hospital info={this.state.hospitals} />
                         </Grid.Column>
                         <Grid.Column>

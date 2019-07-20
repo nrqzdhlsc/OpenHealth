@@ -7,6 +7,8 @@ import {
 
 class Hospital extends Component {
     render() {
+        let messages = this.props.info.allInfo;
+        console.log("allInfo: ", messages === undefined)
         return (
             <Card>
                 <Card.Content>
@@ -14,53 +16,16 @@ class Hospital extends Component {
                 </Card.Content>
                 <Card.Content>
                     <Feed>
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/jenny.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='10分钟前' />
+                        { messages === undefined ? () => {} : (messages.map((item, index) => 
+                            (<Feed.Event>
+                                <Feed.Label image={require('../images/avatar/small/jenny.jpg')} />
+                                <Feed.Content>
+                                <Feed.Date content='5分钟前' />
                                 <Feed.Summary>
-                                    病人A
+                                   { item }
                                 </Feed.Summary>
                             </Feed.Content>
-                        </Feed.Event>
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/molly.png')} />
-                            <Feed.Content>
-                                <Feed.Date content='1天前' />
-                                <Feed.Summary>
-                                    病人B
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
-
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/elliot.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='1周前' />
-                                <Feed.Summary>
-                                    病人C
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
-
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/jenny.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='10分钟前' />
-                                <Feed.Summary>
-                                    病人D
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
-                        <Feed.Event>
-                            <Feed.Label image={require('../images/avatar/small/jenny.jpg')} />
-                            <Feed.Content>
-                                <Feed.Date content='10分钟前' />
-                                <Feed.Summary>
-                                    病人E
-                                </Feed.Summary>
-                            </Feed.Content>
-                        </Feed.Event>
+                        </Feed.Event>))) }
                     </Feed>
                 </Card.Content>
             </Card>
