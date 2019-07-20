@@ -24,7 +24,7 @@ const Datasets = () => (
                         <Feed.Content>
                             <Feed.Summary>
                                 浙大第一附属医院肺炎X光片数据集
-                                <p>Lorem minim excepteur deserunt nulla officia est consectetur laboris.</p>
+                                <p>肺部X光片数据集，包含健康和不同肺炎症状的图片数据。</p>
                                 <Checkbox style={checkBoxStyle} label={<label>选择</label>} />
                             </Feed.Summary>
                         </Feed.Content>
@@ -40,7 +40,7 @@ const Datasets = () => (
                         <Feed.Content right>
                             <Feed.Summary>
                                 北京协和医院肺炎X光片数据集
-                                <p>Nostrud aliquip occaecat esse aliqua anim commodo.</p>
+                                <p>肺部X光片数据集，包含健康和不同肺炎症状的图片数据。</p>
                                 <Checkbox label={<label>选择</label>} />
                             </Feed.Summary>
                         </Feed.Content>
@@ -56,7 +56,7 @@ const Datasets = () => (
                         <Feed.Content>
                             <Feed.Summary>
                                 上海复旦大学附属华山医院肺炎X光片数据集
-                                <p>Sint enim mollit cillum veniam amet minim.</p>
+                                <p>肺部X光片数据集，包含健康和不同肺炎症状的图片数据。</p>
                                 <Checkbox style={checkBoxStyle} label={<label>选择</label>} />
                             </Feed.Summary>
                         </Feed.Content>

@@ -148,7 +148,7 @@ class MedicalDataSharing extends Component {
                 </Header>
                 <Container>
                     <p>
-                        Sunt nostrud amet culpa deserunt dolore dolore cupidatat non excepteur sit non. Elit esse proident labore non amet ea deserunt minim magna laboris amet magna eu. Consequat pariatur et excepteur ad sint tempor sint ut.
+                        {/* Sunt nostrud amet culpa deserunt dolore dolore cupidatat non excepteur sit non. Elit esse proident labore non amet ea deserunt minim magna laboris amet magna eu. Consequat pariatur et excepteur ad sint tempor sint ut. */}
                     </p>
                     <br />
                     <Image src={require('../images/core-combine-frame.png')} />

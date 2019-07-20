@@ -47,7 +47,7 @@ class NewHomePage extends Component {
                 <NavBar />
                 <div style={sectionStyle}>
                     <Header as="h1" className="data-sharing" style={headerStyle}>
-                        数据共享
+                        OpenHealth平台
                     </Header>
                     <Header as="h3" className="data-desc" style={headerStyle}>
                         以患者为中心的医疗数据共享平台。
@@ -59,8 +59,8 @@ class NewHomePage extends Component {
                         方案全景图
                     </Header> 
                     <Header as="h3" className="solution-bg">
-                       Mollit voluptate ea enim aute laboris sit eiusmod.
-                       Sunt qui qui mollit in occaecat sint non ea.
+                       {/* Mollit voluptate ea enim aute laboris sit eiusmod.
+                       Sunt qui qui mollit in occaecat sint non ea. */}
                     </Header>
                     <Container>
                         <Image fluid src={require("../images/core-combine-frame.png")} />

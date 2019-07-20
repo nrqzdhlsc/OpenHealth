@@ -32,7 +32,7 @@ const ModelServiceDemands = () => (
                 <Card.Header>X光片检测肺炎AI模型</Card.Header>
                 <Card.Meta>肺炎检测</Card.Meta>
                 <Card.Description>
-                    Et deserunt aliqua commodo in pariatur commodo excepteur culpa non sit magna.
+                    直接通过肺部X光图片判断出是否为健康或肺炎状态。
                 </Card.Description>
             </Card.Content>
         </Card>
@@ -45,7 +45,7 @@ const ModelServiceDemands = () => (
                 <Card.Header>临床报告阅读理解模型</Card.Header>
                 <Card.Meta>内容理解</Card.Meta>
                 <Card.Description>
-                    Excepteur consequat eiusmod pariatur ex sint in exercitation labore eiusmod eu amet officia amet.
+                    AI助手，可快速回复医生或一般用户的医学问题。
                 </Card.Description>
             </Card.Content>
         </Card>
@@ -58,7 +58,7 @@ const ModelServiceDemands = () => (
                 <Card.Header>医嘱药物推荐模型</Card.Header>
                 <Card.Meta>推荐模型</Card.Meta>
                 <Card.Description>
-                    Velit dolor qui consequat veniam sit consectetur.
+                    可根据病情，以往病史，诊断结果给出医嘱药物组合推荐。
                 </Card.Description>
             </Card.Content>
         </Card>

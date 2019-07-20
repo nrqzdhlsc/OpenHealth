@@ -36,7 +36,7 @@ class FederatedLearning extends Component {
                             联邦学习
                     </Header>
                         <Header as="h3" className="data-desc" style={headerStyle}>
-                            Pariatur nisi culpa minim aliquip consectetur.。
+                            联合建模服务，打破数据孤岛，实现价值流动。
                     </Header>
                     </div>
                     {/* 左右布局，左10 + 右6 */}
