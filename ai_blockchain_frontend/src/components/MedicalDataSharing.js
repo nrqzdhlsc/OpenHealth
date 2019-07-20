@@ -27,7 +27,19 @@ var headerStyle = {
     color: "#FFFFFF"
 }
 
+let TEST_URL = 'http://10.0.0.117:8080/deployDataBus';
+
+
 class MedicalDataSharing extends Component {
+    async componentWillMount() {
+        let hospitals = await fetch(TEST_URL, {
+            method: 'POST',
+            body: "",
+        }).then((response) => {
+            alert("请求结果：", response)
+        });
+    }
+
     render() {
         let hospitals = [
             { label: "浙江大学第一附属" },
