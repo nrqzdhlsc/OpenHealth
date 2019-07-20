@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
-import Background from '../images/federated-learning.png';
+import Background from '../images/ai-market.png';
 import Datasets from './Datasets';
 import ModelServiceDemands from './ModelServiceDemands';
 import Footer from './Footer';
@@ -20,10 +20,10 @@ var sectionStyle = {
 };
 
 var headerStyle = {
-    color: "#000000"
+    color: "#FFFFFF"
 }
 var gridStyle = {
-    margin: "30px"
+    margin: "20px"
 }
 class FederatedLearning extends Component {
     render() {
@@ -33,7 +33,7 @@ class FederatedLearning extends Component {
                     <NavBar />
                     <div style={sectionStyle}>
                         <Header as="h1" className="data-sharing" style={headerStyle}>
-                            联邦学习
+                            AI市场
                     </Header>
                         <Header as="h3" className="data-desc" style={headerStyle}>
                             Pariatur nisi culpa minim aliquip consectetur.。
@@ -47,15 +47,13 @@ class FederatedLearning extends Component {
                                 <Header as="h2" textAlign="center">
                                     公开数据集
                                 </Header>
-                                <br />
                                 {/* 三个数据集 */}
                                 <Datasets />
                             </Grid.Column>
                             <Grid.Column width={6}>
                                 <Header as="h2" textAlign="center">
                                     我的模型需求
-                                </Header>  
-                                <br />
+                                </Header>
                                 <ModelServiceDemands />
                             </Grid.Column>
                         </Grid.Row>

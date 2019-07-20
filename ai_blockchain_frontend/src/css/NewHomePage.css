@@ -1,0 +1,24 @@
+.data-sharing {
+    position: relative;
+    left: 3%;
+    text-align: left;
+    top: 30%;
+    color:white;
+}
+.data-desc {
+    position: relative;
+    left: 3%;
+    text-align: left;
+    top: 30%;
+}
+
+.solution-details {
+    position: relative;
+    left: 0%;
+    text-align: left;
+}
+
+.solution-bg {
+    position: relative;
+    left: 3%;
+}
