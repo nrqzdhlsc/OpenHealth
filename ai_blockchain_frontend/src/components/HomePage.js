@@ -102,17 +102,17 @@ class DesktopContainer extends Component {
                             <Container>
                                 <Menu.Item as='a' active>
                                     主页
-                </Menu.Item>
+                                </Menu.Item>
                                 <Menu.Item as='a'>数据共享</Menu.Item>
                                 <Menu.Item as='a'>联邦学习</Menu.Item>
                                 <Menu.Item as='a'>AI市场</Menu.Item>
                                 <Menu.Item position='right'>
                                     <Button as='a' inverted={!fixed}>
                                         登录
-                  </Button>
+                                    </Button>
                                     <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                                         注册
-                  </Button>
+                                    </Button>
                                 </Menu.Item>
                             </Container>
                         </Menu>

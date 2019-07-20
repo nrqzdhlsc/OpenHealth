@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
     Button,
@@ -7,6 +8,7 @@ import {
     Responsive,
     Segment,
     Visibility,
+    Icon
 } from 'semantic-ui-react';
 
 const getWidth = () => {
@@ -25,33 +27,34 @@ class NavBar extends Component {
     showFixedMenu = () => this.setState({ fixed: true })
 
     // 数据共享
-    onClickMedicalDataSharing = () => {
-        alert("数据共享页面...")
+    onClickMedicalDataSharing = (e) => {
+        // alert("数据共享页面...")
+        // this.style.className = "active"
     }
 
     // 联邦学习
     onClickFTL = () => {
-        alert("联邦学习页面...")
+        // alert("联邦学习页面...")
     }
 
     // AI市场
     onClickAIMarket = () => {
-        alert("AI市场页面...")
+        // alert("AI市场页面...")
     }
 
     // 登录
     onLogin = () => {
-        alert("登录...")
+        // alert("登录...")
     }
 
     // 注册
     onRegister = () => {
-        alert("注册...")
+        // alert("注册...")
     }
 
     // 主页
     onClickMainPage = () => {
-        alert("主页...")
+        // alert("主页...")
     }
 
     render() {
@@ -79,24 +82,27 @@ class NavBar extends Component {
                             size='large'
                         >
                             <Container>
-                                <Menu.Item as='a' active onClick={this.onClickMainPage}> 主页 </Menu.Item>
-                                <Menu.Item as='a' onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
-                                <Menu.Item as='a' onClick={this.onClickFTL}>联邦学习</Menu.Item>
-                                <Menu.Item as='a' onClick={this.onClickAIMarket}>AI市场</Menu.Item>
+                                <Menu.Item> 
+                                    <Icon name="cloud" size="large" color="blue"></Icon>
+                                </Menu.Item>
+                                <Menu.Item as={Link} to="/" className="active nav-link" onClick={this.onClickMainPage} >主页</Menu.Item>
+                                <Menu.Item as={Link} to="/medical-data-sharing" id="sharing" className="nav-link" onClick={this.onClickMedicalDataSharing} >数据共享</Menu.Item>
+                                <Menu.Item as={Link} to="/federated-learning" onClick={this.onClickFTL}>联邦学习</Menu.Item>
+                                <Menu.Item as={Link} to="/ai-market" onClick={this.onClickAIMarket}>AI市场</Menu.Item>
                                 
-                                <Menu.Item position='right'>
-                                    <Button as='a' inverted={!fixed} onClick={this.onLogin}>
+                                {/* <Menu.Item position='right'>
+                                    <Button as={Link} to="/login" display={"none"} inverted={!fixed} onClick={this.onLogin}>
                                         登录
                                     </Button>
-                                    <Button as='a' inverted={!fixed} onClick={this.onRegister} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                                    <Button as={Link} to="/register" inverted={!fixed} onClick={this.onRegister} primary={fixed} style={{ marginLeft: '0.5em' }}>
                                         注册
                                     </Button>
-                                </Menu.Item>
+                                </Menu.Item> */}
                             </Container>
                         </Menu>
                     </Segment>
                 </Visibility>
-                {children}
+                { children }
             </Responsive>
         )
     }

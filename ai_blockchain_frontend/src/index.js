@@ -8,6 +8,10 @@ import * as serviceWorker from './serviceWorker';
 // import NewHomePage from './components/NewHomePage';
 import MedicalDataSharing from './components/MedicalDataSharing';
 import FederatedLearning from './components/FederatedLearning';
+import AIMarket from './components/AIMarket';
+import Login from './components/Login';
+import Register from './components/Register';
+import ErrorPage from './components/ErrorPage';
 
 ReactDOM.render(
     <Router>
@@ -16,6 +20,10 @@ ReactDOM.render(
                 <Route exact path="/" component={App} />
                 <Route path="/medical-data-sharing" component={MedicalDataSharing} />
                 <Route path="/federated-learning" component={FederatedLearning} />
+                <Route path="/ai-market" component={AIMarket}/>
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route path="/error" component={ErrorPage} />
             </Switch>
         </div>
     </Router>,
