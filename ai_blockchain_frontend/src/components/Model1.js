@@ -12,7 +12,8 @@ import {
     Icon,
     Grid,
     Header,
-    Dropdown
+    Dropdown,
+    Label
 } from 'semantic-ui-react';
 
 var ContainerStyle = {
@@ -20,40 +21,37 @@ var ContainerStyle = {
 }
 
 let urlInput = '/pneumonia_input/NORMAL1.jpeg'
-let urlOutput = '/pneumonia_output/img.png'
+let urlOutput = '/pneumonia_output/NORMAL1.jpeg'
+
+let inputList = ['/pneumonia_input/NORMAL1.jpeg','/pneumonia_input/NORMAL2.jpeg',
+                '/pneumonia_input/Virus1.jpeg','/pneumonia_input/Virus2.jpeg']
+
+let outputList = ['/pneumonia_output/NORMAL1.jpeg','/pneumonia_output/NORMAL2.jpeg',
+'/pneumonia_output/Virus1.jpeg','/pneumonia_output/Virus2.jpeg']
 
 const photoOptions = [
   {
-    key: 'Photo1',
-    text: 'Photo1',
-    value: '/pneumonia_input/NORMAL1.jpeg',
+    key: 'Normal',
+    text: 'X-Ray Normal Photo1',
+    value: 0,
   },
   {
-    key: 'Photo2',
-    text: 'Photo2',
-    value: '/pneumonia_input/NORMAL2.jpeg',
+    key: 'Normal',
+    text: 'X-Ray Normal Photo2',
+    value: 1,
   },
   {
-    key: 'Photo3',
-    text: 'Photo3',
-    value: '/pneumonia_input/NORMAL3.jpeg',
+    key: 'Pneumonia',
+    text: 'X-Ray Pneumonia Photo3',
+    value: 2,
   },
   {
-    key: 'Photo4',
-    text: 'Photo4',
-    value: '/pneumonia_input/virus1.jpeg',
-  },
-  {
-    key: 'Photo5',
-    text: 'Photo5',
-    value: '/pneumonia_input/virus2.jpeg',
-  },
-  {
-    key: 'Photo6',
-    text: 'Photo6',
-    value: '/pneumonia_input/virus3.jpeg',
+    key: 'Pneumonia',
+    text: 'X-Ray Pneumonia Photo4',
+    value: 3,
   }
 ]
+
 
 console.log(process.env.PUBLIC_URL)
 
@@ -62,18 +60,31 @@ class Model1 extends Component {
         super(props);
         this.state={
             picInput:'/pneumonia_input/NORMAL1.jpeg',
-            picOutput:'/pneumonia_output/img.png'
+            picOutput:'/pneumonia_output/img.png',
+            picLabel:'X-Ray Normal Photo1',
+            picInputStatus:'Normal',
+            picOutputStatus:'Normal',
+            isOutputShow:false
         }
     }
 
     onClickDropDown = (event,data) => {
         // this.setState({activeNum : 0}, () => { console.log(this.state.activeNum) });
         // alert("主页...")
+        console.log(data);
+        urlInput = inputList[data.value];
         
-        urlInput = data.value;
         console.log(urlInput);
         this.setState({picInput:urlInput});
+        this.setState({picOutput:outputList[data.value]})
+        this.setState({picLabel:photoOptions[data.value].text});
+        this.setState({picOutputStatus:photoOptions[data.value].key})
+        this.setState({isOutputShow:false});
         
+    }
+
+    onClickButton = () => {
+        this.setState({isOutputShow:true});
     }
 
     render() {
@@ -86,16 +97,22 @@ class Model1 extends Component {
                 <Container>
                     <Grid >
                         <Grid.Row centered>
-                            <Grid.Column width={7} >
-                                <img
+                            <Grid.Column width={6} >
+                                <Image
                                     src={this.state.picInput}
+                                    label={{ as: 'a', color: 'blue', content: this.state.picLabel, ribbon: true }}
                                 />
+                                
                             </Grid.Column>
 
 
-                            <Grid.Column width={7}>
-                                <img
-                                    src={urlOutput}
+                            <Grid.Column width={7} >
+                                <Image
+                                    src={this.state.picOutput}
+                                    label={{ as: 'a', color: 'red', content: this.state.picOutputStatus, ribbon: true }}
+                                    
+                                    hidden={!this.state.isOutputShow}
+
                                     />
 
                             </Grid.Column>
@@ -115,7 +132,7 @@ class Model1 extends Component {
                             </Grid.Column>
 
                             <Grid.Column>
-                                    <Button primary>检测</Button>
+                                    <Button primary onClick={this.onClickButton}>检测</Button>
                             </Grid.Column>
 
                         </Grid.Row>     
