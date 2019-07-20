@@ -10,10 +10,10 @@
 flow process:
 - worker process 
     - run server and prepare data
-    - register in the smart contract
+    - register in the smart contract(**TODO**)
 
 - client process
-    - match data source in smart contract & get data's information(host|port)
+    - match data source in smart contract & get data's information(host|port)(**TODO**)
     - run client, connect to worker
     - federated-learning
 
