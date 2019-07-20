@@ -25,7 +25,7 @@ const ModelServiceDemands = () => (
         <Card fluid>
             <Card.Content>
                 {/* <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' /> */}
-                <FederatedLearningModal showBtn={<Button primary disabled floated="right">
+                <FederatedLearningModal showBtn={<Button primary floated="right">
                     <Icon name="hand point up" />
                     选择
                 </Button>}/>

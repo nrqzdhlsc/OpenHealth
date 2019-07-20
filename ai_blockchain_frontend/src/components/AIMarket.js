@@ -28,9 +28,9 @@ var gridStyle = {
     margin: "20px"
 }
 
-let pic1 = '/AI_Market/AIDetection.jpeg'
-let pic2 = '/AI_Market/Drug.jpeg'
-let pic3 = '/AI_Market/Record.jpg'
+let pic1 = '/AI_Market/AIDetection.png'
+let pic2 = '/AI_Market/Drug.png'
+let pic3 = '/AI_Market/Record.png'
 
 let fixedSize = {
     height:"400px",
@@ -70,11 +70,11 @@ class FederatedLearning extends Component {
                                         href='/model1'
                                         target='_blank'
                                     />
-                                    <Card.Header as="h3">
+                                    <Card.Header as="h3" textAlign='center'>
                                         肺炎检测模型
                                     </Card.Header>
                                     <Card.Description>
-                                        模型描述
+                                        Consequat mollit aliquip id enim duis do minim dolore sit laborum fugiat.
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
@@ -84,13 +84,12 @@ class FederatedLearning extends Component {
                                         src={pic2}
                                         size='medium'
                                         target='_blank'
-
                                     />
-                                    <Card.Header as="h3">
+                                    <Card.Header as="h3" textAlign='center'>
                                         临床报告阅读理解模型
                                     </Card.Header>
                                     <Card.Description>
-                                        模型描述
+                                        Quis nostrud ex qui culpa cupidatat incididunt.
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
@@ -101,11 +100,11 @@ class FederatedLearning extends Component {
                                         size='medium'
                                         target='_blank'
                                     />
-                                    <Card.Header as="h3">
+                                    <Card.Header as="h3" textAlign='center'>
                                         医嘱药物推荐模型
                                     </Card.Header>
                                     <Card.Description>
-                                        模型描述
+                                        Voluptate amet reprehenderit ut sunt minim eiusmod do.
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>

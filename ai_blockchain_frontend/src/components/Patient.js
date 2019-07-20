@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, If } from 'react';
 import { Card, Feed } from 'semantic-ui-react';
 
 import {
@@ -42,12 +42,18 @@ class Patient extends Component {
                                         { item.requestInfo }
                                         <br />
                                         {/* 2：已拒绝， 1：已确认，0：两个按钮都存在 */}
-                                        { item.status === 2 ? () => (
+                                        { item.status === 2 ? (() => (
                                             <div>
                                                 <Button positive onClick={onClickConfirm}>确认</Button>
                                                 <Button negative onClick={onClickReject}>拒绝</Button>
                                             </div>
-                                        ) : () => {} }
+                                        )) : () => {} }
+                                        {item.status === 1 ? (() => (
+                                            <div>
+                                                <Button positive onClick={onClickConfirm}>确认</Button>
+                                                <Button negative onClick={onClickReject}>拒绝</Button>
+                                            </div>
+                                        )) : () => { }}
                                         
                                     </Feed.Summary>
                                 </Feed.Content>
