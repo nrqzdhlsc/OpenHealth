@@ -10,8 +10,14 @@ import {
     Visibility,
     Image,
     Icon,
-    Grid
+    Grid,
+    Header
 } from 'semantic-ui-react';
+
+var ContainerStyle = {
+    background:"#032951"
+}
+
 
 class Model1 extends Component {
     constructor(props) {
@@ -20,32 +26,47 @@ class Model1 extends Component {
     render() {
         return (
             <div>
+                
                 <NavBar />
-                <Grid >
-                    <Grid.Row centered>
-                        <Grid.Column width={8} >
-                            <Image
-                                src='https://react.semantic-ui.com/images/wireframe/image-text.png'
-                                as='a'
-                                href='/model1'
-                                target='_blank'
-                            />
+                <Header as="h1" textAlign="center" >AI模型计算
+                </Header>
+                <Container>
+                    <Grid >
+                        <Grid.Row centered>
+                            <Grid.Column width={6} >
+                                <Image
+                                    src='https://react.semantic-ui.com/images/wireframe/image-text.png'
+                                    as='a'
+                                    target='_blank'
+                                />
+                            </Grid.Column>
 
-                        </Grid.Column>
-                    </Grid.Row>
 
-                    <Grid.Row  centered columns={10}>
-                        <Grid.Column width={8}>
-                                <DropdownExampleSelection/>
+                            <Grid.Column width={6}>
+                                <Image
+                                        src='https://react.semantic-ui.com/images/wireframe/image-text.png'
+                                        as='a'
+                                        target='_blank'
+                                    />
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                检测结果
+                            </Grid.Column>
+                        </Grid.Row>
 
-                        </Grid.Column>
+                        <Grid.Row  centered columns={10}>
+                            <Grid.Column width={8}>
+                                    <DropdownExampleSelection/>
 
-                        <Grid.Column>
-                                <Button primary>检测</Button>
-                        </Grid.Column>
+                            </Grid.Column>
 
-                    </Grid.Row>     
-                </Grid>
+                            <Grid.Column>
+                                    <Button primary>检测</Button>
+                            </Grid.Column>
+
+                        </Grid.Row>     
+                    </Grid>
+                </Container>
             </div>
         )
     }
