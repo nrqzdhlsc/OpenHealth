@@ -28,11 +28,12 @@ var headerStyle = {
 }
 
 let HOST = "http://localhost:8080"
+let HOST2 = "http://10.0.0.117:8080"
 
-let HOSTPITAL_URL = HOST + '/getHospitalRecords'
-let PATIENT_REQUEST_URL = HOST + '/getPatientRequests'
-let PATIENT_INFO_URL = HOST + '/getPatientInfo'
-let PLATFORM_URL = HOST + '/getPlatformRecords'
+let HOSTPITAL_URL = HOST2 + '/getHospitalRecords'
+let PATIENT_REQUEST_URL = HOST2 + '/getPatientRequests'
+let PATIENT_INFO_URL = HOST2 + '/getPatientInfo'
+let PLATFORM_URL = HOST2 + '/getPlatformRecords'
 
 var hospitals = []
 var doctors = []
