@@ -89,8 +89,11 @@ class FederatedLearning extends Component {
                                         href='/model1'
                                         target='_blank'
                                     />
+                                    <Card.Header as="h3" textAlign="center">
+                                        肺炎检测模型
+                                    </Card.Header>
                                     <Card.Description fluid>
-                                        模型描述
+                                        Qui laborum est dolor exercitation consectetur culpa labore in commodo cillum consequat quis anim consequat.
                                     </Card.Description>
                                 </Card>
                             </Grid.Column>
