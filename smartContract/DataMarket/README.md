@@ -110,3 +110,77 @@
 - getDataInfo_dataType_totalSize:输入全局index，获取数据大小
 
 # DataMarket.sol
+
+## Struct
+
+全局结构体数组的结构类型说明：
+
+    struct tx{
+    int ModelIndex;
+    int DataIndex;
+    int txIndex;
+    int groupIndex;
+    uint256 txValue;
+}
+
+- txIndex代表数据的primaryKey，值为globalIndex
+- groupIndex代表数据属于联邦学习的哪一组（比如科学家选了三组数据，那么需要调用match三次，这三次的group值应为一个值）
+- DataIndex代表数据的匹配的index号，对应DSList合约中的 data primaryKey
+- ModelIndex代表模型的匹配的index号，对应ModelList合约中的 model primaryKey
+- txValue代表匹配中模型方向数据方传输的价值，通常不同的数据类型与数据大小对应的价值也不同
+
+
+## API
+
+本体函数API说明：
+
+    function getGlobalIndex() constant public returns(int){}
+    
+    function increaseGroupIndex() public {}
+    
+    function matchData(int modelIndex, int dataIndex,uint256 txValue,int groupIndex){} 
+    
+    function getTxModelIndex(uint txIndex) constant returns (int){}
+    
+    function getTxDataIndex(uint txIndex) constant returns (int){}
+
+    function getTxValue(uint txIndex) constant returns (uint256){}
+
+    function getTxGroupIndex(uint txIndex) constant returns (int){}
+
+- getGlobalIndex:获取当前合约下的全局index
+- increaseGroupIndex:增加increateGroupIndex
+- matchData:核心函数，匹配Model源和Data源，并注册在txs中
+- getTxModelIndex:输入全局index，获取模型index
+- getTxDataIndex:输入全局index，获取数据index
+- getTxValue:输入全局index，获取交易价值
+- getTxGroupIndex:输入全局index，获取groupIndex
+
+
+
+
+其他合约函数API的封装说明:  
+    
+    function DS_getDataInfo_dataType_info(uint index)constant public returns(string) {return dl.getDataInfo_dataType_info(index);}
+    
+    function DS_getDataInfo_dataType_format(uint index)constant public returns(uint) {return dl.getDataInfo_dataType_format(index);}
+    
+    function DS_getDataInfo_dataType_amount(uint index)constant public returns(uint) {return dl.getDataInfo_dataType_amount(index);}
+    
+    function DS_getDataInfo_dataType_totalSize(uint index)constant public returns(uint) {return dl.getDataInfo_dataType_totalSize(index);}    
+    
+    function DS_getDataInfo_port(uint index)constant public returns(int) {return dl.getDataInfo_port(index);}
+    
+    function DS_getDataInfo_host(uint index)constant public returns(string) {return dl.getDataInfo_host(index);}
+    
+    function DS_getGlobalIndex() constant public returns(uint){return dl.getGlobalIndex();}
+    
+    function ML_getModelInfo_API(uint index)constant public returns(string) {return ml.getModelInfo_API(index);}
+    
+    function ML_getModelInfo_port(uint index)constant public returns(int) {return ml.getModelInfo_port(index);}
+    
+    function ML_getModelInfo_host(uint index)constant public returns(string) {return ml.getModelInfo_host(index);}
+    
+    function ML_getGlobalIndex() constant public returns(uint){return ml.getGlobalIndex();}
+
+- get* 调用在上述其他合约中get数据的接口
