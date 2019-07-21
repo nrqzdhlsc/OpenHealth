@@ -1,4 +1,4 @@
-# OpenHealth
+# DoraHacks 7.19 ~ 7.21
 
 Author: Qibing Li, Tianyao Gao, Zepei Lin, Bing W, Hao Ying
 
