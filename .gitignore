@@ -3,4 +3,4 @@
 **/.DS_Store
 **/__pycache__
 AI_Models/clicr/clicr/
-federated_learning/data/
+federated_learning/mnist_FL/data/
