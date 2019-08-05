@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.fbc.ai_and_blockchain.service.ReencryptionService;
 import org.fbc.ai_and_blockchain.utils.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 public class ReencryptionController {
 
@@ -20,10 +22,10 @@ public class ReencryptionController {
     @RequestMapping(value = "/initialize", method = RequestMethod.GET)
     public SuperResult deployContract() {
         client.initialize();
-        String address = client.deployDataBusAndRecordAddr();
+//        String address = client.deployDataBusAndRecordAddr();
         client.initData();
         Map<String, String> map = new HashMap<>();
-        map.put("address", address);
+//        map.put("address", address);
         return SuperResult.ok(map);
     }
 

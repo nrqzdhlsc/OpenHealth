@@ -17,9 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -63,13 +61,35 @@ public class ReencryptionService {
     }
 
     public void initData() {
-        dict.put("H_A", "浙大第一附属医院");
-        dict.put("H_B", "北京协和医院");
-        dict.put("D_B", "林医生");
-        dict.put("P_A", "患者老高");
+//        dict.put("H_A", "浙大第一附属医院");
+//        dict.put("H_B", "北京协和医院");
+//        dict.put("D_B", "林医生");
+//        dict.put("P_A", "患者老高");
+//        genAllRecords();
+        FileInputStream freader;
+        try {
+            freader = new FileInputStream("./dict.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(freader);
+            dict = (HashMap<String, String>) objectInputStream.readObject();
+            freader.close();
+            freader = new FileInputStream("./records.txt");
+            objectInputStream = new ObjectInputStream(freader);
+            records = (List<String>) objectInputStream.readObject();
+            freader.close();
+            freader = new FileInputStream("./patientInfos.txt");
+            objectInputStream = new ObjectInputStream(freader);
+            patientInfos = (List<PatientInfo>) objectInputStream.readObject();
+            freader.close();
+            freader = new FileInputStream("./patientRequests.txt");
+            objectInputStream = new ObjectInputStream(freader);
+            patientRequests = (List<PatientRequest>) objectInputStream.readObject();
+            freader.close();
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
     }
 
-    public String loadAssetAddr() throws Exception {
+    public String loadReencryptionAddr() throws Exception {
         // load Asset contact address from contract.properties
         Properties prop = new Properties();
         final Resource contractResource = new ClassPathResource("contract.properties");
@@ -79,7 +99,7 @@ public class ReencryptionService {
         if (contractAddress == null || contractAddress.trim().equals("")) {
             throw new Exception(" load Asset contract address failed, please deploy it first. ");
         }
-        return contractAddress;
+        return "0x3462bd5aa2f53b50b97dc8c7089b3586137f3e65";
     }
 
     public void initialize() {
@@ -135,7 +155,7 @@ public class ReencryptionService {
     public int superiorRegister(String account, String publicKey, String verifyingKey) {
         int ret_code = 0;
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             TransactionReceipt receipt = dataBus.superiorRegister(account, publicKey, verifyingKey).send();
             List<DataBus.SuperiorRegisterEventEventResponse> response = dataBus.getSuperiorRegisterEventEvents(receipt);
@@ -160,7 +180,7 @@ public class ReencryptionService {
     public int subordinateRegister(String account, String superior, String publicKey, String verifyingKey, int type) {
         int ret_code = 0;
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             BigInteger userType = new BigInteger(type + "");
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             TransactionReceipt receipt = dataBus.subordinateRegister(account, superior, publicKey, verifyingKey, userType).send();
@@ -187,7 +207,7 @@ public class ReencryptionService {
     public List<String> getAllPatients() {
         List<String> result = new ArrayList<>();
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             List<BigInteger> allIndexs = dataBus.getAllPatient().send();
             for (BigInteger i : allIndexs) {
@@ -203,7 +223,7 @@ public class ReencryptionService {
 
     public String getUserPubKey(String account) {
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
 
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             String result = dataBus.getUserPubKey(account).send();
@@ -215,7 +235,7 @@ public class ReencryptionService {
 
     public String getUserVerifyingKey(String account) {
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
 
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             String result = dataBus.getUserVerifyKey(account).send();
@@ -232,7 +252,7 @@ public class ReencryptionService {
             System.out.println("data id is : " + dataId);
             data.put("cipheretext", cipheretext);
             data.put("capsule", capsule);
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             TransactionReceipt receipt = dataBus.uploadData(account, owner, dataId, "RAM").send();
             List<DataBus.UploadDataEventEventResponse> response = dataBus.getUploadDataEventEvents(receipt);
@@ -240,7 +260,7 @@ public class ReencryptionService {
                 if (response.get(0).ret.compareTo(new BigInteger("0")) == 0) {
                     System.out.printf(" uploadData Success => account: %s \n", account);
                     returnMap.put("dataId", dataId);
-                    patientInfos.add(0, new PatientInfo(dict.get(account), dataId, 0));
+                    patientInfos.add(0, new PatientInfo(dict.get(owner), dataId, 0));
                     return SuperResult.ok(returnMap);
                 } else {
                     System.out.printf(" uploadData fails, retCode is %s \n",
@@ -286,23 +306,17 @@ public class ReencryptionService {
     }
 
     public DataSharingResponse genHospitalRecords() {
-        genAllRecords();
         return new DataSharingResponse(dict.get("H_A"), records);
     }
 
     public RequestResponse genPatientRequests() {
         String title = dict.get("P_A") + "(" + dict.get("H_A") + ")";
-        patientRequests.add(new PatientRequest("0", "收到赵医生(上海复旦大学附属华山医院)的查看病例请求。", 2));
-        patientRequests.add(new PatientRequest("1", "收到陈医生(华中科技大学同济医学院附属同济医院)的查看病例请求。", 2));
         RequestResponse result = new RequestResponse(title, patientRequests);
         return result;
     }
 
     public PatientInfoResponse genPatientInfo() {
         String title = dict.get("D_B") + "(" + dict.get("H_B") + ")";
-        patientInfos.add(new PatientInfo("患者老李", "0", 0));
-        patientInfos.add(new PatientInfo("患者老王", "1", 0));
-        patientInfos.add(new PatientInfo("患者老薛", "2", 0));
         PatientInfoResponse result = new PatientInfoResponse(title, patientInfos);
         return result;
     }
@@ -317,7 +331,7 @@ public class ReencryptionService {
     public String getUserSuperior(String account) {
         String result = "";
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             String superior = dataBus.getSuperior(account).send();
             result = superior;
@@ -331,7 +345,7 @@ public class ReencryptionService {
         Map<String, String> returnMap = new HashMap<>();
         try {
             String requestId = UUID.randomUUID().toString();
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             TransactionReceipt receipt = dataBus.requestForData(account, requestId, dataId).send();
             List<DataBus.RequestForDataEventEventResponse> response = dataBus.getRequestForDataEventEvents(receipt);
@@ -340,6 +354,10 @@ public class ReencryptionService {
                     System.out.printf(" request for data Success => account: %s, dataId: %s \n", account, dataId);
                     patientRequests.add(0, new PatientRequest(requestId, "收到" + dict.get("D_B") + "(" + dict.get("H_B") + ")的查看病例请求。", 0));
                     records.add(0, genRecord(account, "P_A", 0));
+                    PatientInfo patientInfo = patientInfos.get(0);
+                    patientInfo.setStatus(1);
+                    patientInfos.remove(0);
+                    patientInfos.add(0, patientInfo);
                     returnMap.put("requestId", requestId);
                     return SuperResult.ok(returnMap);
                 } else {
@@ -349,11 +367,6 @@ public class ReencryptionService {
             } else {
                 System.out.println(" event log not found, maybe transaction not exec. ");
             }
-            Tuple4<String, String, String, String> dataInfo = dataBus.getData(account, dataId).send();
-            Data data = new Data(dataInfo.getValue1(), dataInfo.getValue2(), dataInfo.getValue3(), dataInfo.getValue4());
-            String record = account + "申请查看" + data.getOwner() + "的病例数据";
-
-            records.add(record);
         } catch (Exception e) {
             System.out.println("request data error");
         }
@@ -364,7 +377,7 @@ public class ReencryptionService {
         Map<String, String> returnMap = new HashMap<>();
         try {
             List<Request> allRequests = new ArrayList<>();
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             List<BigInteger> response = dataBus.getYourRequests(account).send();
             for (BigInteger i : response) {
@@ -383,7 +396,7 @@ public class ReencryptionService {
 
     public String getRequestById(String requestId) {
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             Tuple4<String, String, String, BigInteger> result = dataBus.getRequestByRequestId(requestId).send();
             Request request = new Request(result.getValue1(), result.getValue2(), result.getValue3(), result.getValue4());
@@ -398,7 +411,7 @@ public class ReencryptionService {
         int ret_code = 0;
         try {
             String result = "";
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             TransactionReceipt receipt = dataBus.agreeForRequest(account, requestId).send();
             List<DataBus.AgreeForRequestEventEventResponse> response = dataBus.getAgreeForRequestEventEvents(receipt);
@@ -411,7 +424,8 @@ public class ReencryptionService {
                     patientRequests.add(0, request);
                     PatientInfo info = patientInfos.get(0);
                     info.setStatus(1);
-                    info.setDataURL("http://img.sher.vip/1.jpg");
+                    info.setDataURL("http://img.sher.vip/return_example.jpeg");
+                    patientInfos.remove(0);
                     patientInfos.add(0, info);
                     records.add(0, genRecord(account, "P_A", 1));
                 } else {
@@ -436,7 +450,7 @@ public class ReencryptionService {
 
     public String getData(String account, String dataId) {
         try {
-            String contractAddress = loadAssetAddr();
+            String contractAddress = loadReencryptionAddr();
             DataBus dataBus = DataBus.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
             Tuple4<String, String, String, String> result = dataBus.getData(account, dataId).send();
             Data chainData = new Data(result.getValue1(), result.getValue2(), result.getValue3(), result.getValue4());

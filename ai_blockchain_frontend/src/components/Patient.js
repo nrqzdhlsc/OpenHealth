@@ -6,7 +6,8 @@ import {
 } from 'semantic-ui-react';
 
 let HOST = "http://localhost:8080"
-let CONFIRM_REQUEST= HOST + '/agreeForRequest'
+let HOST2 = "http://10.0.0.117:8080"
+let CONFIRM_REQUEST= HOST2 + '/agreeForRequest'
 
 // 确认查看请求
 const onClickConfirm = (requestId) => {
